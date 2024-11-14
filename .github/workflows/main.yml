@@ -1,18 +1,21 @@
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select deployment environment"
+        required: true
+        type: choice
+        options:
+          - nonprod
+          - prod
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Install yq
-      - name: Install yq
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y yq
-
-      # Step 2: Check selected environment
       - name: Check selected environment
         run: echo "Selected environment: ${{ github.event.inputs.environment }}"
 
-      # Step 3: Set up Deployment for nonprod
       - name: Set up Deployment for nonprod
         if: ${{ github.event.inputs.environment == 'nonprod' }}
         run: |
@@ -21,11 +24,10 @@ jobs:
           echo "Message from nonprod config: $message"
           # Add your nonprod deployment commands here
 
-      # Step 4: Set up Deployment for prod
       - name: Set up Deployment for prod
         if: ${{ github.event.inputs.environment == 'prod' }}
         run: |
           echo "Deploying to prod environment"
           message=$(yq eval '.message' tenants/demo/prod/config.yml)
           echo "Message from prod config: $message"
-          # Add your prod deployment commands here
+          # Add your prod deployment commands here        

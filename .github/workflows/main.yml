@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select deployment environment"
+        required: true
+        type: choice
+        options:
+          - nonprod
+          - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check selected environment
+        run: echo "Selected environment: ${{ github.event.inputs.environment }}"
+
+      - name: Set up Deployment for nonprod
+        if: ${{ github.event.inputs.environment == 'nonprod' }}
+        run: |
+          echo "Deploying to nonprod environment"
+          # Add your nonprod deployment commands here
+
+      - name: Set up Deployment for prod
+        if: ${{ github.event.inputs.environment == 'prod' }}
+        run: |
+          echo "Deploying to prod environment"
+          # Add your prod deployment commands here

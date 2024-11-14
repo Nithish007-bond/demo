@@ -13,6 +13,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
       - name: Check selected environment
         run: echo "Selected environment:${{ github.event.inputs.environment }}"
 

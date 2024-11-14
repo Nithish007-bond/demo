@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check selected environment
-        run: echo "Selected environment: ${{ inputs.environment }}"
+        run: echo "Selected environment:${{ inputs.environment }}"
 
       - name: Set up Deployment for nonprod
         if: ${{ inputs.environment == 'nonprod' }}

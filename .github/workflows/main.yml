@@ -20,7 +20,7 @@ jobs:
         if: ${{ github.event.inputs.environment == 'nonprod' }}
         run: |
           echo "Deploying to nonprod environment"
-          message=$(yq eval '.message' tenants/demo/nonprod/config.yml)
+          message=$(yq eval '.message' tenants/demo/nonprod/configs.yml)
           echo "Message from nonprod config: $message"
           # Add your nonprod deployment commands here
 
@@ -28,6 +28,6 @@ jobs:
         if: ${{ github.event.inputs.environment == 'prod' }}
         run: |
           echo "Deploying to prod environment"
-          message=$(yq eval '.message' tenants/demo/prod/config.yml)
+          message=$(yq eval '.message' tenants/demo/prod/configs.yml)
           echo "Message from prod config: $message"
           # Add your prod deployment commands here        

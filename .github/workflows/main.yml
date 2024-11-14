@@ -17,7 +17,7 @@ jobs:
         run: echo "Selected environment: ${{ inputs.environment }}"
 
       - name: Set up Deployment for nonprod
-        if: ${{ github.event.inputs.environment == 'nonprod' }}
+        if: ${{ inputs.environment == 'nonprod' }}
         run: |
           echo "Deploying to nonprod environment"
           message=$(yq eval '.message' tenants/demo/nonprod/config.yml)
@@ -25,7 +25,7 @@ jobs:
           # Add your nonprod deployment commands here
 
       - name: Set up Deployment for prod
-        if: ${{ github.event.inputs.environment == 'prod' }}
+        if: ${{ inputs.environment == 'prod' }}
         run: |
           echo "Deploying to prod environment"
           message=$(yq eval '.message' tenants/demo/prod/config.yml)

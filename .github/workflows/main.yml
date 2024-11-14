@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check selected environment
-        run: echo "Selected environment:${{ inputs.environment }}"
+        run: echo "Selected environment:${{ github.event.inputs.environment }}"
 
       - name: Set up Deployment for nonprod
-        if: ${{ inputs.environment == 'nonprod' }}
+        if: ${{ github.event.inputs.environment == 'nonprod' }}
         run: |
           echo "Deploying to nonprod environment"
           message=$(yq eval '.message' tenants/demo/nonprod/config.yml)
@@ -25,7 +25,7 @@ jobs:
           # Add your nonprod deployment commands here
 
       - name: Set up Deployment for prod
-        if: ${{ inputs.environment == 'prod' }}
+        if: ${{ github.event.inputs.environment == 'prod' }}
         run: |
           echo "Deploying to prod environment"
           message=$(yq eval '.message' tenants/demo/prod/config.yml)

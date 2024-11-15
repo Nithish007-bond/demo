@@ -30,7 +30,7 @@ jobs:
          echo "Selected tenant:${{ inputs.tenant }}"
          echo "Selected environment:${{ inputs.environment }}"
 
-      - name: Set up Deployment for nonprod
+      - name: Set up Deployment for selected tenant and environment
       
         run: |
           echo "Deploying to selected tenants and environment"

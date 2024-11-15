@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
     inputs:
-      tenant_name:
+      tenant:
         description: "Select the tenant name"
         required: true
         type: choice
@@ -26,21 +26,19 @@ jobs:
         with:
           ref: ${{ github.ref }}
       - name: Check selected environment
-        run: echo "Selected environment:${{ github.event.inputs.environment }}"
+        run: |
+         echo "Selected tenant:${{ inputs.tenant }}"
+         echo "Selected environment:${{ inputs.environment }}"
 
       - name: Set up Deployment for nonprod
-        if: ${{ github.event.inputs.environment == 'nonprod' }}
+      
         run: |
-          echo "Deploying to nonprod environment"
-          # message=$(yq eval '.message' tenants/demo/nonprod/configs.yml)
-          cat tenants/demo/${{  github.event.inputs.environment  }}/configs.yml
-          echo "Message from nonprod config: $message"
-          # Add your nonprod deployment commands here
+          echo "Deploying to selected tenants and environment"
+          cat tenants/${{  inputs.tenant  }}/${{  inputs.environment  }}/config.yml
 
-      - name: Set up Deployment for prod
-        if: ${{ github.event.inputs.environment == 'prod' }}
-        run: |
-          echo "Deploying to prod environment"
-          message=$(yq eval '.message' tenants/demo/prod/config.yml)
-          echo "Message from prod config: $message"
-          # Add your prod deployment commands here        
+      # - name: Set up Deployment for prod
+      #   if: ${{ github.event.inputs.environment == 'prod' }}
+      #   run: |
+      #     echo "Deploying to prod environment"
+      #     cat tenants/${{  inputs.tenant  }}/${{  inputs.environment  }}/config.yml
+     

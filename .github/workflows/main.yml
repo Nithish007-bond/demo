@@ -1,13 +1,6 @@
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: "Select deployment environment"
-        required: true
-        type: choice
-        options:
-          - nonprod
-          - prod
       tenant_name:
         description: "Select the tenant name"
         required: true
@@ -15,6 +8,14 @@ on:
         options:
           - demo
           - demo1
+      environment:
+        description: "Select deployment environment"
+        required: true
+        type: choice
+        options:
+          - nonprod
+          - prod
+
 
 jobs:
   deploy:

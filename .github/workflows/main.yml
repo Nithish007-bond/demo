@@ -8,6 +8,13 @@ on:
         options:
           - nonprod
           - prod
+      tenant_name:
+        description: "Select the tenant name"
+        required: true
+        type: choice
+        options:
+          - demo
+          - demo1
 
 jobs:
   deploy:
